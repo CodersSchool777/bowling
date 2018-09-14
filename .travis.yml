@@ -8,11 +8,13 @@ before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
  
- addons:
-        apt:
-          update: true
-          packages:
-            - lcov
+matrix:
+    include:
+        addons:
+            apt:        
+                update: true
+                packages:
+                    - lcov
 
 install: 
   # C++17
