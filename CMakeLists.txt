@@ -37,6 +37,8 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_CXX_FLAGS "-g -O0 --coverage")
+
 project(Bowling)
 
 add_subdirectory(boost-cmake)
