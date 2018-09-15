@@ -13,39 +13,42 @@ void BowlingManagmentSystem::aboutTheProject()
     std::cout<<"For more information check: https://github.com/CodersSchool777/bowling\n";
 }
 
-void BowlingManagmentSystem::checkFirstGivenArgument(const std::string &firstArgument)
+bool BowlingManagmentSystem::checkFirstGivenArgument(const std::string &firstArgument)
 {
     if(firstArgument == "-h" || firstArgument == "--help")
-    {
-        aboutTheProject();
-    }
-    else
-    {
-        Bowling bowling("../" + firstArgument);
-        std::cout<<bowling;
-    }
+        return true;
+    else return false;
 }
 
-void BowlingManagmentSystem::checkSecondGivenArgument(const std::string &firstArgument,
-                                                      const std::string &secondArgument)
+void BowlingManagmentSystem::showResultsOnTheMonitor(const std::string &firstArgument)
+{
+    Bowling bowling("../" + firstArgument);
+    std::cout<<bowling;
+}
+
+void BowlingManagmentSystem::saveResultsInExternalFile(const std::string &firstArgument,
+                                                       const std::string &secondArgument)
 {
     Bowling bowling("../" + firstArgument);
     std::ofstream inFile("../save/" + secondArgument);
     inFile<<bowling;
-    std::cout<<bowling;
 }
 
 void BowlingManagmentSystem::run(int argc, char* argv[])
 {
-    std::string firstArgument(argv[1]);                             //file direcory or help
     switch(argc)
     {
-    case 2:
-        checkFirstGivenArgument(firstArgument);
+    case 2:                                                             //file direcory or help
+        if(checkFirstGivenArgument(std::string(argv[1])))
+            aboutTheProject();
+        else showResultsOnTheMonitor(std::string(argv[1]));
         break;
-    case 3:
-        std::string secondArgument(argv[2]);                        //optional file.txt
-        checkSecondGivenArgument(firstArgument, secondArgument);
+    case 3:                                                             //optional file.txt
+        showResultsOnTheMonitor(std::string(argv[1]));
+        saveResultsInExternalFile(std::string(argv[1]), std::string(argv[2]));
+        break;
+    default:
+        std::cout<<"Invalid number of given parameters"<<std::endl;
         break;
     }
 }
