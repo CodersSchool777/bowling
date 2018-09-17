@@ -5,7 +5,14 @@
 
 struct GameStatusTest : public ::testing::Test
 {
+    static const std::string gameInProgress;
+    static const std::string noGame;
+    static const std::string gameFinished;
 };
+
+const std::string GameStatusTest::gameInProgress = "game in progress";
+const std::string GameStatusTest::noGame = "no game";
+const std::string GameStatusTest::gameFinished = "game finished";
 
 TEST_F(GameStatusTest, expect_game_in_progress_when_two_players_still_play)
 {
@@ -15,7 +22,7 @@ TEST_F(GameStatusTest, expect_game_in_progress_when_two_players_still_play)
     // WHEN
     Status status(results);
     // THEN
-    ASSERT_EQ(status.getStatus(), "game in progress");
+    ASSERT_EQ(status.getStatus(), gameInProgress);
 }
 
 TEST_F(GameStatusTest, expect_game_in_progress_when_three_players_still_play)
@@ -27,7 +34,7 @@ TEST_F(GameStatusTest, expect_game_in_progress_when_three_players_still_play)
     // WHEN
     Status status(results);
     // THEN
-    ASSERT_EQ(status.getStatus(), "game in progress");
+    ASSERT_EQ(status.getStatus(), gameInProgress);
 }
 
 TEST_F(GameStatusTest, expect_no_game_when_there_is_an_empty_string)
@@ -37,7 +44,7 @@ TEST_F(GameStatusTest, expect_no_game_when_there_is_an_empty_string)
     // WHEN
     Status status(results);
     // THEN
-    ASSERT_EQ(status.getStatus(), "no game");
+    ASSERT_EQ(status.getStatus(), noGame);
 }
 
 TEST_F(GameStatusTest,
@@ -49,5 +56,5 @@ TEST_F(GameStatusTest,
     // WHEN
     Status status(results);
     // THEN
-    ASSERT_EQ(status.getStatus(), "game finished");
+    ASSERT_EQ(status.getStatus(), gameFinished);
 }
